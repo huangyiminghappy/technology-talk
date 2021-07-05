@@ -3,7 +3,7 @@
 ---
 ZooKeeper是Apache基金会的一个开源、分布式应用程序协调服务，是Google的Chubby一个开源的实现。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。它的目标就是封装好复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。
 
-### 集群模式（推荐首选）
+### 一、集群模式（首选推荐，一般用于生产环境）
 
 ##### 1.下载
 ZooKeeper安装包可以在其官网下载页面下载，下载地址如下，为加快下载速度可以选择中国境内的镜像，选择稳定版本zookeeper-3.4.8.tar.gz安装包。
@@ -12,25 +12,24 @@ http://zookeeper.apache.org/releases.html#download
 
 ##### 2.解压并配置环境变量
 
-下载后把安装包方放在目录/home/spark/work目录下，用下面命令解压缩ZooKeeper安装包，并把解压后的目录移动到/app/soft目录下：
+下载后把安装包方放在目录/Users/onlyone/software/zookeeper目录下，并解压
 
 ```
-$cd /home/spark/work/
-$tar -zxf zookeeper-3.4.8.tar.gz
-$mv zookeeper-3.4.8 /app/soft
-$ll /app/soft
-```
-为了方便运行zkServer.sh脚本，在集群中的节点中，需要将ZooKeeper的bin路径加入到/etc/profile中，设置如下内容（分发到各节点后，在各节点上做同样设置）：
+$cd /Users/onlyone/software/zookeeper
+$tar -zxvf zookeeper-3.4.8.tar.gz
 
 ```
-export ZOOKEEPER_HOME=/app/soft/zookeeper-3.4.8
+将ZooKeeper的bin路径加入到/Users/onlyone/.bash_profile中，设置如下内容（分发到各节点后，在各节点上做同样设置）：
+
+```
+export ZOOKEEPER_HOME=/Users/onlyone/software/zookeeper/zookeeper-3.4.8
 export PATH=$PATH:$ZOOKEEPER_HOME/bin
 ```
 
 设置完毕后使用如下命令使配置生效：
 
 ```
-$source /etc/profile
+$source .bash_profile
 ```
 
 ##### 3.修改ZooKeeper的配置文件
@@ -38,13 +37,13 @@ $source /etc/profile
 在ZooKeeper的根目录下建立data和log目录用于存放工作数据和日志文件：
 
 ```
-$mkdir /app/soft/zookeeper-3.4.8/data/
-$mkdir /app/soft/zookeeper-3.4.8/log/
+$mkdir /Users/onlyone/software/zookeeper/zookeeper-3.4.8/data/
+$mkdir /Users/onlyone/software/zookeeper/zookeeper-3.4.8/log/
 ```
 在ZooKeeper配置目录下默认情况下，不存在在zoo.cfg文件，需要复制一份，然后进行修改，命令如下：
 
 ```
-$cd /app/soft/zookeeper-3.4.8/conf/
+$cd /Users/onlyone/software/zookeeper/zookeeper-3.4.8/conf/
 $cp zoo_sample.cfg zoo.cfg
 $sudo vi zoo.cfg
 ```
@@ -52,8 +51,8 @@ $sudo vi zoo.cfg
 
 ```
 //用于存放ZooKeeper的数据和日志
-dataDir=/app/soft/zookeeper-3.4.8/data
-dataLogDir=/app/soft/zookeeper-3.4.8/log
+dataDir=/Users/onlyone/software/zookeeper/zookeeper-3.4.8/data
+dataLogDir=/Users/onlyone/software/zookeeper/zookeeper-3.4.8/log
  
 //外部客户端连接端口号，在Kafka中将使用该端口号
 clientPort=2181
@@ -101,21 +100,25 @@ $zkServer.sh status
 当第一个节点启动ZooKeeper时由于集群的其他节点未启动ZooKeeper，使用zkServer.sh status命令查看当前状态时会提示错误。但是随着后续节点的ZooKeeper的陆续启动，使用status查看状态时会显示当前节点的状态，本次master作为了follower。
 
 
-### 单机模式
+### 二、单机模式
 
 zk支持单机部署，只要启动一台zk机器，就可以提供正常服务
 
 单机模式的部署步骤和集群模式的部署步骤基本一致，只是在zoo.cfg文件的配置上有些差异。
 
+进入目录中的conf目录，有一个zoo_sample.cfg文件，将其重命名为zoo.cfg，然后打开，在最后添加
+
 ```
-dataDir=/app/soft/zookeeper-3.4.8/data
-dataLogDir=/app/soft/zookeeper-3.4.8/log
+dataDir=/Users/onlyone/software/zookeeper/zookeeper-3.4.8/data
+dataLogDir=/Users/onlyone/software/zookeeper/zookeeper-3.4.8/log
 clientPort=2181
- 
-server.1=ip1:2888:3888
 ```
 
-和集群模式唯区别就在机器列表上，只有server.1这一项。修改完这个文件后，就可以启动服务器了。
+启动
+
+```
+/Users/onlyone/software/zookeeper/zookeeper-3.4.8/bin/zkServer.sh start 
+```
 
 ```
 ➜  zookeeper-3.4.8 telnet 127.0.0.1 2181                
@@ -142,20 +145,96 @@ Connection closed by foreign host.
 集群模式和单机模式下输出的服务器验证信息基本一致，只有Mode属性不一样。
 
 
-### 伪集群模式
+### 三、伪集群模式（一般用于测试环境）
 
 比如有一台物理机（10核16G内存），如果做为单机模式有点浪费，如果按照集群模式，需要借助硬件的虚拟化技术，把一台物理机转换成几台虚拟机。
 
 伪集群，集群所有的机器都在一台机器上，但是还是以集群的特性对外提供服务。
 
-```
-dataDir=/app/soft/zookeeper-3.4.8/data
-dataLogDir=/app/soft/zookeeper-3.4.8/log
-clientPort=2181
- 
-server.1=ip1:2888:3888
-server.2=ip1:2889:3889
-server.3=ip1:2890:3890
-```
+创建环境目录
 
-ip地址相同，但后面的端口配置不一样。
+```
+mkdir /Users/onlyone/software/zookeeper/zk-cluster/zk1
+mkdir /Users/onlyone/software/zookeeper/zk-cluster/zk2
+mkdir /Users/onlyone/software/zookeeper/zk-cluster/zk3
+
+
+echo "1" > /Users/onlyone/software/zookeeper/zk-cluster/zk1/data/myid
+echo "2" > /Users/onlyone/software/zookeeper/zk-cluster/zk2/data/myid
+echo "3" > /Users/onlyone/software/zookeeper/zk-cluster/zk3/data/myid
+
+```
+分别修改配置文件
+
+修改：dataDir、dataLogDir、clientPort
+
+增加：集群的实例，server.X，”X”表示每个目录中的myid的值
+
+```
+vi /Users/onlyone/software/zookeeper/zk-cluster/zk1/conf/zoo.cfg
+
+tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/Users/onlyone/software/zookeeper/zk-cluster/zk1/data
+dataLogDir=/Users/onlyone/software/zookeeper/zk-cluster/zk1/log
+clientPort=2181
+server.1=192.168.0.14:2888:3888
+server.2=192.168.0.14:2889:3889
+server.3=192.168.0.14:2890:3890
+
+
+vi /Users/onlyone/software/zookeeper/zk-cluster/zk2/conf/zoo.cfg
+
+tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/Users/onlyone/software/zookeeper/zk-cluster/zk2/data
+dataLogDir=/Users/onlyone/software/zookeeper/zk-cluster/zk2/log
+clientPort=2182
+server.1=192.168.0.14:2888:3888
+server.2=192.168.0.14:2889:3889
+server.3=192.168.0.14:2890:3890
+
+vi /Users/onlyone/software/zookeeper/zk-cluster/zk3/conf/zoo.cfg
+
+tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/Users/onlyone/software/zookeeper/zk-cluster/zk3/data
+dataLogDir=/Users/onlyone/software/zookeeper/zk-cluster/zk3/log
+clientPort=2183
+server.1=192.168.0.14:2888:3888
+server.2=192.168.0.14:2889:3889
+server.3=192.168.0.14:2890:3890
+```
+注意：本地启动，要注意更改ip
+
+
+3个节点配置完成，然后启动集群
+
+```
+/Users/onlyone/software/zookeeper/zookeeper-3.4.8/bin/zkServer.sh start /Users/onlyone/software/zookeeper/zk-cluster/zk1/conf/zoo.cfg
+
+/Users/onlyone/software/zookeeper/zookeeper-3.4.8/bin/zkServer.sh start /Users/onlyone/software/zookeeper/zk-cluster/zk2/conf/zoo.cfg
+
+/Users/onlyone/software/zookeeper/zookeeper-3.4.8/bin/zkServer.sh start /Users/onlyone/software/zookeeper/zk-cluster/zk3/conf/zoo.cfg
+```
+查看节点状态
+
+```
+➜  bin /Users/onlyone/software/zookeeper/zookeeper-3.4.8/bin/zkServer.sh status /Users/onlyone/software/zookeeper/zk-cluster/zk1/conf/zoo.cfg
+ZooKeeper JMX enabled by default
+Using config: /Users/onlyone/software/zookeeper/zk-cluster/zk1/conf/zoo.cfg
+Mode: follower
+➜  bin /Users/onlyone/software/zookeeper/zookeeper-3.4.8/bin/zkServer.sh status /Users/onlyone/software/zookeeper/zk-cluster/zk2/conf/zoo.cfg
+ZooKeeper JMX enabled by default
+Using config: /Users/onlyone/software/zookeeper/zk-cluster/zk2/conf/zoo.cfg
+Mode: leader
+➜  bin /Users/onlyone/software/zookeeper/zookeeper-3.4.8/bin/zkServer.sh status /Users/onlyone/software/zookeeper/zk-cluster/zk3/conf/zoo.cfg
+ZooKeeper JMX enabled by default
+Using config: /Users/onlyone/software/zookeeper/zk-cluster/zk3/conf/zoo.cfg
+Mode: follower 
+```
+可以看出zk2是leader，zk1和zk3是follower
+

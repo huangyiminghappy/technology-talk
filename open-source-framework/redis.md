@@ -4,14 +4,48 @@
 
 ### 附录
 
-*	[安装及主从复制](redis-master-slave.md)
+*	[安装、主从复制](redis-master-slave.md)
 *	[redis缓存与memcache的区别](redis缓存与memcache的区别.md)
 *	[redis原生命令api](http://www.runoob.com/redis/redis-sorted-sets.html)
 *	[redis 命令参考](http://doc.redisfans.com/index.html)
+*	[Redis 教程](http://www.runoob.com/redis/redis-pub-sub.html)
+* redis cluster
+	* [Redis 集群教程](http://www.redis.cn/topics/cluster-tutorial.html)
+	* [Redis Cluster集群搭建](https://www.cnblogs.com/lykxqhh/p/5690923.html)
+
+
+客户端：
+
+* Jedis
+	* [github源码](https://github.com/xetorthio/jedis)
+* Redic
+	* Redis缓存客户端，支持读写分离和分片。
+	* [源码](https://gitee.com/robertleepeak/redic)
+* Codis
+	* 在应用层和缓存服务器中间增加一个代理层，根据分片规则来路由请求。
+	* [Codis集群的搭建与使用](http://www.cnblogs.com/xuanzhi201111/p/4425194.html)
+
+
+资料收集：
+
+* [redis为什么是单线程？](http://blog.csdn.net/world6/article/details/79381682)
+* [Redis为什么这么快？一文深入了解Redis内存模型！](https://mp.weixin.qq.com/s/m-RdJQdG-qW-BLquorhMlQ)
+* [3台机器轻松搭建一个高可用Redis服务架构](https://mp.weixin.qq.com/s/vxJCG0Nk4csbZ1axLy0bfQ)
+* [Redis 内存为什么不宜过大](https://mp.weixin.qq.com/s/fpupqLp-wjR8fQvYSQhVLg)
+* [史上最全Redis高可用技术解决方案大全](https://mp.weixin.qq.com/s/BoLsVKYyu8yRXZbxd1uuQw)
+
+业务应用：
+
+* [同程凤凰缓存系统基于Redis的设计与实践](https://mp.weixin.qq.com/s/2FEbkas_m1WnYUqjVpMkWw)
+* [携程开源其Redis多数据中心解决方案XPipe](http://mp.weixin.qq.com/s/YhrJprLWjoZa2tU3qY8XZw)
+
+前沿：
+
+* [redis不同版本新特性](redis-new-feature.md)
+
 
 ---
-
-redis服务器是核心业务采用单线程模式，无锁竞争且基于内存操作，执行效率非常高。
+redis采用C编写，redis服务器是核心业务采用单线程模式，无锁竞争且基于内存操作，执行效率非常高。
 
 如果开启备份机制，会fork子线程来处理。
 
@@ -133,6 +167,8 @@ expx：过期时间单位必须是EX或PX，EX表示单位是“秒”，PX表�
 time：过期时间，前一个参数是"EX"的话单位为“秒”，是"PX"的话单位为“毫秒”
 
 @return 操作成功的话返回字符串OK，否则返回null
+
+ps：从Redis 2.6.12 版本开始支持
 
 ```
 

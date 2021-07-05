@@ -2,11 +2,21 @@
 
 ---
 
+* [安装](kafka-setup.md)
+* [Apache Kafaka源码剖析](kafka-sourcecode.md)
+* [Kafka Java客户端---KClient](https://gitee.com/robertleepeak/kclient)
+
+管理工具：
+
+* [kafka-manager](kafka-manager-setup.md)
+
+---
+
 
 Kafka是由LinkedIn开发的一个开源分布式基于发布/订阅的消息系统，Scala编写。
 Producer向broker push消息；Consumer从broker pull消息（pull模式则可以根据Consumer的消费能力以适当的速率消费消息）
 
-#### 目标：
+### 目标：
 
 * 以时间复杂度为O(1)的方式提供消息持久化能力，即使对TB级以上数据也能保证常数时间复杂度的访问性能。
 * 高吞吐率。即使在非常廉价的商用机器上也能做到单机支持每秒100K条以上消息的传输。
@@ -14,7 +24,7 @@ Producer向broker push消息；Consumer从broker pull消息（pull模式则可�
 * 同时支持离线数据处理和实时数据处理。
 
 
-#### 核心组件：
+### 核心组件：
 
 * 	Broker
 
@@ -59,7 +69,7 @@ Kafka集群会保留所有的消息，无论其被消费与否。两种策略删
 * 二是基于Partition文件大小，可以通过配置$KAFKA_HOME/config/server.properties
 
 
-#### 消息的有序性
+### 消息的有序性
 
 * https://github.com/chenryn/logstash-best-practice-cn/blob/master/contrib_plugins/kafka.md
 * https://github.com/chenryn/ELKstack-guide-cn/blob/master/logstash/scale/kafka.md
@@ -71,8 +81,19 @@ Kafka集群会保留所有的消息，无论其被消费与否。两种策略删
  kafka 的消息模型是对 topic 分区以达到分布式效果。每个 topic 下的不同的 partitions (区)只能有一个 Owner 去消费。所以只有多个分区后才能启动多个消费者，对应不同的区去消费。其中协调消费部分是由 server 端协调而成。使用者不必考虑太多。只是消息的消费是无序的。
  
 总结：如果想保证消息的顺序，那就用一个 partition。 kafka 的每个 partition 只能同时被同一个 group 中的一个 consumer 消费。
+
+###  源码分析
+
+* [源码分析笔记]()
 	
-### 参考资料
+### 其它资料
 
 * [Kafka高性能架构之道——Kafka设计解析](http://mp.weixin.qq.com/s/3i51S1jDXbqvi6fv1cuQSg)
-* http://www.infoq.com/cn/articles/kafka-analysis-part-1
+* [Kafka背景及架构介绍](http://www.infoq.com/cn/articles/kafka-analysis-part-1)
+* [kafka性能参数和压力测试揭秘](http://blog.csdn.net/stark_summer/article/details/50203133)
+* [Kafka技术内幕拾遗](http://zqhxuyuan.github.io/2017/12/31/Kafka-Book-Resources/)
+
+
+
+
+

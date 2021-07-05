@@ -2,9 +2,12 @@
 
 ---
 
-#### 附录
+### 附录
 
-[官方网站](http://tomcat.apache.org/)
+* [apache tomcat 官网](http://tomcat.apache.org/)
+* [深度解读 Tomcat 中的 NIO 模型](https://mp.weixin.qq.com/s/Nk7gcwsgBhgMWTRkgAFpRA)
+* [详解 Tomcat 的连接数与线程池](https://mp.weixin.qq.com/s/YoQJOhFBWzUqFkBtHevldA)
+* [关于servlet3.0中的异步servlet](https://www.cnblogs.com/jiaoyiping/p/5979242.html)
 
 ---
 ### tomcat服务器优化

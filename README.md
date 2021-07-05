@@ -2,13 +2,37 @@
 
 ---
 
-有人认为编程是一门技术活，要有一定的天赋，非天资聪慧者不能及也。其实不然，笔者虽是计算机专业出身，但工作年限并不长，对于技术这碗饭有一些心得体会，大多数人成为某领域顶级专家可能会有些难度，但应对日常工作，成长为资深研发工程师、技术专家、甚至成为小团队的Team Leader，其实并不难。
+### 个人介绍
 
-**多读书、多看报，多研究常用开源框架的源码，比如：github.com，这里汇集了全球工程师的智慧！**
+计算机专业出身，研究僧，阿里架构师。写过专利，竞赛拿过奖，CSDN博客专家。负责过电商交易、社区团购、营销、金融等业务。多年团队管理经验，爱思考，热衷把工作沉淀写成文章
 
-言归正传，下文会列举工作中常用的一些技术，以及如何锻炼提升自己的架构能力。
+**近期整理多个技术专栏，发布在微信公众号：** [微观技术](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg2NzYyNjQzNg==&action=getalbum&album_id=1874600102896467974#wechat_redirect) **。欢迎扫描下方↓↓↓ 二维码 关注**
+
+
+1、【Spring Boot 生态之开源框架实战】基于spring boot的常用中间件快速集成入门系列手册，包含  [Mybatis、druid、Data JPA、Redis、Sharding-sphere、Guava、Caffeine、Ehcache、ElasticSearch、Kafka、Pulsar、Apollo、Nacos、OkHttp、HttpClient、gRPC、Dubbo、Seata](https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg2NzYyNjQzNg==&action=getalbum&album_id=1874600102896467974#wechat_redirect)，等几十个常用开源框架
+
+2、【电商会员营销】几十种营销活动的扩展性玩法如何架构
+
+3、【团队管理】组团打怪升级，需要具备哪些管理技能
+
+4、【性能架构】“三高”系统的各种架构设计经验
+
+![image](weiguanjishu.jpg)
+
+---
+
+### 前言
+
+有人认为编程是一门技术活，要有一定的天赋，非天资聪慧者不能及也。
+
+其实不然，笔者计算机专业出身，对于技术这碗饭有一些心得体会，大多数人成为某领域顶级专家可能会有些难度，但应对日常工作，**成长为资深研发工程师、技术专家、甚至成为小团队的Team Leader，并不难**
+
+**多读书、多看报，多研究开源框架源码，比如：github.com，这里汇集了全球工程师的智慧！**
+
+言归正传，本文会列举工作中常用的一些技术，以及如何锻炼提升自己的架构能力。
 
 由于每块技术市场上基本都有对应的网络资料或书籍，所以本文只是少篇幅列举工作中用到的核心知识点，抛砖引玉，属于进阶型，不适用初学者。
+
 
 ### 基础知识
 * 	[java](basic-knowledge/java.md)
@@ -23,23 +47,26 @@
 ### 数据库
 目前使用最多还是mysql，虽然单机性能比不上oracle，但免费开源，单机成本低且借助于分布式集群，可以有强大的输出能力。
 
-*	[连接池](data-base/数据库连接池.md)
+*	[连接池](data-base/database-connection-pool.md)
 * 	[事务](data-base/transaction.md)
 * 	[分库分表](data-base/分库分表.md)
-* 	[id生成器](data-base/id生成器.md)
-* 	[DAO层接口性能监控](data-base/DAO层接口性能监控.md)
+* 	[全局表 ID生成器](data-base/id-generate.md)
 * 	[读写分离](http://blog.csdn.net/itomge/article/details/6909240)
-* 	[sql技巧](data-base/sql技巧.md)
+* 	[SQL调优](data-base/sql-optimize.md)
 * 	[其它](data-base/other.md)
 
 
 ### web容器/协议/网络
 
-* [负载均衡之LVS](system-architecture/LVS.md)
-* [Nginx](web/Nginx.md)
-* [tomcat](web/tomcat.md)
-* [http协议](web/http协议.md)
-* [CDN](system-architecture/CDN.md)
+* [负载均衡](web/load-balance.md)
+* 服务器
+	* [Nginx](web/Nginx.md)
+	* [Tomcat](web/tomcat.md)
+* 协议
+	* [HTTP 协议](web/http.md)
+	* [TCP 协议](web/tcp.md)
+* [CDN](web/CDN.md)
+* [其它](web/other.md)
 
 
 ### 常用三方工具包
@@ -52,7 +79,9 @@
 * [commons-io](open-source-framework/commons-io.md)
 * [Quartz](open-source-framework/Quartz.md)
 * [HttpClient](open-source-framework/HttpClient.md)
-* [Javassist](http://blog.csdn.net/itomge/article/details/7671294)
+* [okhttp](open-source-framework/okhttp.md)
+* [Javassist](open-source-framework/Javassist.md)
+* [lombok](open-source-framework/lombok.md)
 
 
 ### 中间件
@@ -62,90 +91,99 @@
 	* [dubbox](https://www.oschina.net/p/dubbox)
 	* [motan](https://github.com/weibocom/motan)
 	* [Thrift](https://github.com/apache/thrift)
-	* [RPC框架性能比较](http://mp.weixin.qq.com/s/iw9-UaZZl3gCqKAw2Mxz6A)
+	* [RPC框架性能比较](middle-software/rpc-compare.md)
 
 *   MQ消息
 	* [ActiveMQ](https://github.com/apache/activemq)
-	* [RabbitMQ]()
+	* [RabbitMQ](middle-software/RabbitMQ.md)
 	* [Kafka](middle-software/kafka.md)
-	* [RocketMQ](https://github.com/apache/incubator-rocketmq)
+	* [RocketMQ](middle-software/RocketMQ.md)	
+	* [MQ框架性能比较](middle-software/mq-compare.md)
 
-*   缓存
+*   分布式缓存
 	* [redis](open-source-framework/redis.md)
 	* [memcache](http://blog.csdn.net/itomge/article/details/8035197)
 
+*   本地缓存
+	* [Guava](middle-software/guava.md)
+	* [Ehcache](middle-software/ehcache.md)
+	 	
 *   搜索
 	* [Elasticsearch](middle-software/elasticsearch.md)
 
 *   分布式数据框架
 	* [cobar](middle-software/cobar.md)
+	* [Mycat](middle-software/mycat.md)
 	* [tsharding](middle-software/tsharding.md)
 	* [tddl](https://github.com/alibaba/tb_tddl)
-	* [sharding-jdbc](https://www.slahser.com/2016/06/25/%E5%BD%93%E5%BD%93%E7%9A%84sharding-jdbc%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/)
+	* [sharding-jdbc](middle-software/sharding-jdbc.md)
+	* [dbsplit](https://gitee.com/robertleepeak/dbsplit)
 
 *	分布式协调服务
 	* [zookeeper](middle-software/zookeeper.md)
-	
-*   大数据
-	* [Hbase](middle-software/Hbase.md)
-	* [Spark](middle-software/Spark.md)
-	* [Hadoop](middle-software/Hadoop.md)
-	* [Hive](middle-software/Hive.md)
-	* [Flink](middle-software/Flink.md)
-	* [other框架](middle-software/big-data.md)
-	
+		
 *   配置管理
 
 	* [super-diamond](other/super-diamond源码分析.md)
 	* [disconf](https://www.oschina.net/p/disconf)
 	* [apollo](middle-software/apollo.md)
-	
+
+*   分布式文件系统
+	* [FastDFS](middle-software/FastDFS.md)
+
+*   分布式任务调度框架
+
+	* [Elastic-Job](https://github.com/elasticjob/elastic-job)
+	* [详解当当网的分布式作业框架elastic-job](http://www.infoq.com/cn/articles/dangdang-distributed-work-framework-elastic-job)
+	* [TBSchedule](http://blog.csdn.net/taosir_zhang/article/details/50728362)
+	* [xxl-job](https://github.com/xuxueli/xxl-job)
+
+*   大数据
+	* [Hbase](middle-software/Hbase.md)
+	* [Spark](middle-software/Spark.md)
+	* [Hadoop](middle-software/Hadoop.md)
+	* [Hive](middle-software/Hive.md)
+	* [other框架](middle-software/big-data.md)	
 
 *  其它
-	* [FastDFS(分布式文件系统)](https://www.oschina.net/p/fastdfs)
-	* [mysql数据库binlog的增量订阅&消费组件](https://github.com/alibaba/canal)
-	* [分布式数据库同步系统](https://github.com/alibaba/otter)
+	* [数据库binlog的增量订阅&消费组件](https://github.com/alibaba/canal)
+	* [数据库同步系统](https://github.com/alibaba/otter)
+	* [TCC-Transaction](middle-software/TCC-Transaction.md)
+	* [Netty](middle-software/Netty.md)
+	* [OpenResty](middle-software/openresty.md)
 
 ### 系统架构 
 
-* [架构经验](system-architecture/架构经验.md)
-* [锁相关](system-architecture/lock.md)
-* [经典案例](system-architecture/经典案例.md)
+* [架构经验](system-architecture/architecture-experience.md)
+* [经典案例](system-architecture/architecture-good-case.md)
 * [通用技术方案选型](system-architecture/technology-selection.md)
 * [编码前3000问](system-architecture/编码前3000问.md)
+* [软硬件性能](system-architecture/software-performance.md)
+* [技术大纲](system-architecture/knowledge-outline.md)
 
 
 ### 项目管理
 
 * [论需求调研的重要性](project-management/论需求调研的重要性.md)
-* [项目生命周期](project-management/项目生命周期.md)
-* [项目管理案例](project-management/项目管理案例.md)
-* [代码规范](project-management/代码规范.md)
-* [git常用命令](project-management/git常用命令.md)
-* [ab性能压测](other/ab测试.md)
+* [项目管理](project-management/project-management.md)
+* [代码管理](project-management/code.md)
+* [测试相关](project-management/test.md)
+
 
 ### 运维
 
-* 	[Docker](ops/docker.md)
 *	[快速排查线上问题](ops/online-question.md)
-*	[linux常用命令](ops/linux常用命令.md)
+*	[linux常用命令](ops/linux-commands.md)
 *	[本地代码调试](ops/本地代码调试.md)
+* 	[Docker](ops/docker.md)
 
 ### 个人成长
 
-*   [Tom的读书单](other/book.md)
+*   [学习网站](other/study.md)
+*   [Tom哥的读书单](other/book.md)
 *   [个人成长与职业规划](other/person.md)
-*   学习网站
-	* [infoQ](http://www.infoq.com/cn/)
-	* [云栖社区](https://yq.aliyun.com/)
-	* [并发编程网](http://ifeve.com/)
-	* [开源中国](http://www.oschina.net/)
-	* [stackoverflow](http://stackoverflow.com/)
-*   视频网站
-	* [慕课网](http://www.imooc.com/)
-	* [网易云课堂](http://study.163.com/)
-	* [腾讯课堂](https://ke.qq.com/course/list/spark)
-*   [程序员素养](project-management/程序员素养.md)
+*   [程序员素养](other/programer.md)
+
 
 ### 其它
 
@@ -156,3 +194,11 @@
 	* [大数据面试题](other/bigdata-interview.md)
 *	[回车与换行的区别](other/回车与换行的区别.md)
 *   [github上fork项目后，如何同步更新后面提交](http://blog.csdn.net/qq1332479771/article/details/56087333)
+* 	[其它](other/other.md)
+
+
+### 写在最后
+
+`商务合作，请发邮件到 aalansehaiyang52@126.com`
+
+
